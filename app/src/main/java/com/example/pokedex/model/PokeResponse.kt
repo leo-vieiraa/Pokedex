@@ -19,4 +19,9 @@ data class Pokemon(
     @ColumnInfo(name = "poke_url")
     @SerializedName("url")
     val url: String
-)
+) {
+    fun extractIdFromUrl(): String {
+        val listStr = url.split("/")
+        return listStr[6]
+    }
+}

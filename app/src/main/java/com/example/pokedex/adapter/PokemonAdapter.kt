@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedex.R
+import com.example.pokedex.databinding.PokemonCardItemBinding
 import com.example.pokedex.model.Pokemon
 
 class PokemonAdapter() : RecyclerView.Adapter<PokemonViewHolder>() {
@@ -35,10 +36,15 @@ class PokemonAdapter() : RecyclerView.Adapter<PokemonViewHolder>() {
 
 class PokemonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+    private val binding: PokemonCardItemBinding = PokemonCardItemBinding.bind(view)
+
     fun bind(pokemon: Pokemon) {
 
+        binding.idTextView.text = "#${pokemon.extractIdFromUrl()}"
+        binding.nameTextView.text = pokemon.name
+
         itemView.findViewById<TextView>(R.id.nameTextView).text = pokemon.name
-        itemView.findViewById<TextView>(R.id.urlTextView).text = pokemon.url
+//        itemView.findViewById<TextView>(R.id.urlTextView).text = pokemon.url
 
     }
 
