@@ -1,13 +1,17 @@
 package com.example.pokedex.repository
 
+import android.content.Context
+import com.example.pokedex.database.AppDatabase
 import com.example.pokedex.model.PokeResponse
+import com.example.pokedex.model.Pokemon
 import com.example.pokedex.services.RefrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PokemonRepository {
+class PokemonRepository (private val context: Context) {
 
+    private val database = AppDatabase.getDatabase(context)
     fun fetchAll(onComplete: (PokeResponse?, String?) -> Unit) {
         val service = RefrofitService.getPokeService()
         val call = service.getAll()
@@ -24,6 +28,19 @@ class PokemonRepository {
                 onComplete(null, t.message)
             }
         })
+    }
+
+    fun insertIntoDatabase(items: List<Pokemon>) {
+        val dao = database.pokemonDAO()
+        items.forEach { poke ->
+            dao.insert(pokemon = poke)
+        }
+
+    }
+
+    fun fetchAllFromDatabase(): List<Pokemon>? {
+        val dao = database.pokemonDAO()
+        return dao.all()
     }
 
 }
