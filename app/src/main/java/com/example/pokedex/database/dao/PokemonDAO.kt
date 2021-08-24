@@ -2,8 +2,10 @@ package com.example.pokedex.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.pokedex.model.Pokemon
+import com.example.pokedex.model.Types
 
 @Dao
 interface PokemonDAO {
@@ -16,5 +18,8 @@ interface PokemonDAO {
 
     @Insert
     fun insert(pokemon: Pokemon)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertType(types: List<Types>)
 
 }

@@ -63,7 +63,7 @@ class PokemonRepository (private val context: Context) {
 
     fun insertIntoDatabase(pokemon: Pokemon) {
         val dao = database.pokemonDAO()
-        dao.insert(pokemon = pokemon)
+        dao.insert(pokemon)
     }
 
     fun fetchAllFromDatabase(): List<Pokemon>? {

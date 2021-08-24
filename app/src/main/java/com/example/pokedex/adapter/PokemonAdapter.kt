@@ -50,7 +50,10 @@ class PokemonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 .load(it.sprites.other.artWork?.image)
                 .into(binding.avatarImageView)
         }
-//        itemView.findViewById<TextView>(R.id.urlTextView).text = pokemon.url
+        pokemon.details?.let {
+            val bgColor = it.type[0].type.extractBgColor()
+            binding.cardItem.setCardBackgroundColor(itemView.context.getColor(bgColor))
+        }
 
     }
 
