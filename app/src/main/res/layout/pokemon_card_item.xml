@@ -79,7 +79,6 @@
         android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible"
         android:elevation="12dp"
         />
 
