@@ -22,4 +22,7 @@ interface PokemonDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertType(types: List<Types>)
 
+    @Query("SELECT * FROM pokemon WHERE poke_name LIKE '%' || :query || '%'")
+    fun fetchFiltered(query: String): List<Pokemon>
+
 }

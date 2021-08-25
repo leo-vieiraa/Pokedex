@@ -52,15 +52,6 @@ class PokemonRepository (private val context: Context) {
         })
     }
 
-
-    fun insertIntoDatabase(items: List<Pokemon>) {
-        val dao = database.pokemonDAO()
-        items.forEach { poke ->
-            dao.insert(pokemon = poke)
-        }
-
-    }
-
     fun insertIntoDatabase(pokemon: Pokemon) {
         val dao = database.pokemonDAO()
         dao.insert(pokemon)
@@ -69,6 +60,11 @@ class PokemonRepository (private val context: Context) {
     fun fetchAllFromDatabase(): List<Pokemon>? {
         val dao = database.pokemonDAO()
         return dao.all()
+    }
+
+    fun fetchAllFromDatabaseWithFilter(query: String): List<Pokemon>? {
+        val dao = database.pokemonDAO()
+        return dao.fetchFiltered(query.lowercase())
     }
 
 }

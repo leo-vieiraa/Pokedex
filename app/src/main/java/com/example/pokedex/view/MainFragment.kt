@@ -1,6 +1,8 @@
 package com.example.pokedex.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +42,27 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
         viewModel.pokeResponse.observe(viewLifecycleOwner, observerPokemons)
         viewModel.fetchAllFromDatabase(requireContext())
+
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                p0?.let {
+                    if (it.length > 2) {
+                        viewModel.fetchFilteredFromDatabase(requireContext(), it.toString())
+                    }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                p0?.let {
+                    if (it.isEmpty()) {
+                        viewModel.fetchAllFromDatabase(requireContext())
+                    }
+                }
+            }
+        })
 
     }
 
